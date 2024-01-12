@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "121543407737",
+    "project_id": "custom-fit-37567",
+    "storage_bucket": "custom-fit-37567.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121543407737:android:bd39140a0a404ef05b3ca8",
+        "android_client_info": {
+          "package_name": "com.example.custom_fit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQA-yOmAlsMpn5XUJCDvFL56ZP9lfs0zM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
