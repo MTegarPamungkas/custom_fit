@@ -1,5 +1,6 @@
 # custom_fit
 Nama Tim : AuraVentures </p>
+Anggota Tim : Muhammad Tegar Pamungkas | Muhammad Alif Ramadhan | Shafa Aura Ayu | Kartika </p>
 Nama Aplikasi : CustomFit </p>
 Deskripsi Tim : Saat ini trend dunia fashion sedang begitu  berkembang, mulai banyak orang yang tertarik untuk membuat baju sendiri dengan model yang mereka inginkan. Tetapi, terdapat permasalahan yaitu sulitnya merancang model baju yang diinginkan ketika mengalami keterbatasan jarak dengan tukang jahit. Didasari oleh hal tersebut, penulis membuat inovasi aplikasi yang mampu membantu user untuk membuat model bajunya sendiri berbasis generative AI dan langsung menghubungkan hasil custom bajunya kepada penjahit. Aplikasi ini mendorong inovasi dalam bidang fashion dan tercapainya SDGS ke SDG 9 yaitu mendukung Industri, Inovasi, dan Infrastruktur.</p>
 
