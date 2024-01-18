@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:custom_fit/application/use_cases/authentication/login.dart';
-import 'package:custom_fit/presentation/pages/home/home_page.dart';
+import 'package:custom_fit/presentation/app.dart';
 import 'package:custom_fit/presentation/widgets/auth_button.dart';
 import 'package:custom_fit/presentation/widgets/auth_google_button.dart';
 import 'package:custom_fit/presentation/widgets/subtitle_text_auth.dart';
@@ -12,6 +12,9 @@ import 'package:custom_fit/domain/value_objects/password.dart';
 import 'package:custom_fit/infrastructure/services/firebase_authentication.dart';
 import 'package:custom_fit/presentation/widgets/email_text_field.dart';
 import 'package:custom_fit/presentation/widgets/password_text_field.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -35,6 +38,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _performLogin(BuildContext context) async {
+    EasyLoading.show(status: 'Loading...');
     final email = Email(_emailController.text);
     final password = Password(_passwordController.text);
 
@@ -42,14 +46,35 @@ class _LoginPageState extends State<LoginPage> {
 
     if (user != null) {
       print('Login successful');
+      final box = GetStorage();
+      await box.write('userEmail', user.email.value);
       // ignore: use_build_context_synchronously
-      Navigator.of(context).pushReplacement(
+      Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) => const HomePage(),
+          builder: (context) => App(),
         ),
+        (route) => false,
       );
+      EasyLoading.dismiss();
     } else {
       print('Login failed');
+      EasyLoading.dismiss();
+      // ignore: use_build_context_synchronously
+      Alert(
+        context: context,
+        title: "Login failed",
+        buttons: [
+          DialogButton(
+            onPressed: () => Navigator.pop(context),
+            width: 120,
+            child: const Text(
+              "Close",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          )
+        ],
+        style: const AlertStyle(overlayColor: Colors.black54),
+      ).show();
     }
   }
 

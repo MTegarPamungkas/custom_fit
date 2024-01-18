@@ -1,20 +1,20 @@
 import 'package:custom_fit/presentation/pages/payment/payment_success.dart';
 import 'package:custom_fit/presentation/widgets/card_item.dart';
 import 'package:custom_fit/presentation/widgets/destination_adress.dart';
-import 'package:custom_fit/presentation/widgets/payment_button.dart';
-import 'package:custom_fit/presentation/widgets/payment_method.dart';
-import 'package:custom_fit/presentation/widgets/shipping_option.dart';
+import 'package:custom_fit/presentation/widgets/payment_button_cancel.dart';
+import 'package:custom_fit/presentation/widgets/payment_method_detail.dart';
+import 'package:custom_fit/presentation/widgets/shipping_option_detail.dart';
 import 'package:custom_fit/presentation/widgets/total_price.dart';
 import 'package:flutter/material.dart';
 
-class CheckoutPage extends StatelessWidget {
-  const CheckoutPage({Key? key}) : super(key: key);
+class DetailOrderPage extends StatelessWidget {
+  const DetailOrderPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Checkout"),
+        title: const Text("Detail Order"),
       ),
       body: SafeArea(
         child: Padding(
@@ -30,11 +30,11 @@ class CheckoutPage extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                const ShippingOption(),
+                const ShippingOptionDetail(),
                 const SizedBox(
                   height: 16,
                 ),
-                const PaymentMethod(),
+                const PaymentMethodDetail(),
                 const SizedBox(
                   height: 16,
                 ),
@@ -42,7 +42,7 @@ class CheckoutPage extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                PaymentButton(
+                PaymentButtonCancel(
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -51,7 +51,7 @@ class CheckoutPage extends StatelessWidget {
                         ),
                       );
                     },
-                    title: "Make a Payment"),
+                    title: "Cancel Order"),
                 const SizedBox(
                   height: 16,
                 ),

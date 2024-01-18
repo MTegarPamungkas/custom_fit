@@ -28,7 +28,7 @@ class DestinationAdress extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(20),
             decoration: ShapeDecoration(
-              color: Color(0xFFF5F5FA),
+              color: const Color(0xFFF5F5FA),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -38,7 +38,7 @@ class DestinationAdress extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   child: Text(
                     'Jane Doe',
                     style: TextStyle(

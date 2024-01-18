@@ -13,6 +13,8 @@ import 'package:custom_fit/domain/value_objects/password.dart';
 import 'package:custom_fit/infrastructure/services/firebase_authentication.dart';
 import 'package:custom_fit/presentation/widgets/email_text_field.dart';
 import 'package:custom_fit/presentation/widgets/password_text_field.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -37,6 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future<void> _performRegister(BuildContext context) async {
+    EasyLoading.show(status: 'Loading...');
     // final username = Email(_usernameController.text);
     final email = Email(_emailController.text);
     final password = Password(_passwordController.text);
@@ -46,8 +49,26 @@ class _RegisterPageState extends State<RegisterPage> {
 
     if (user != null) {
       print('Register successful');
+      EasyLoading.dismiss();
     } else {
       print('Register failed');
+      EasyLoading.dismiss();
+      // ignore: use_build_context_synchronously
+      Alert(
+        context: context,
+        title: "Register failed",
+        buttons: [
+          DialogButton(
+            onPressed: () => Navigator.pop(context),
+            width: 120,
+            child: const Text(
+              "Close",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          ),
+        ],
+        style: const AlertStyle(overlayColor: Colors.black54),
+      ).show();
     }
   }
 

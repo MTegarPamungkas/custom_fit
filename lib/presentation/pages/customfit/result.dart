@@ -1,4 +1,3 @@
-import 'package:custom_fit/presentation/widgets/card_product_custom_fit.dart';
 import 'package:custom_fit/presentation/widgets/card_product_home.dart';
 import 'package:custom_fit/presentation/widgets/draggable_sheet.dart';
 import 'package:custom_fit/presentation/widgets/nav_custom_fit.dart';

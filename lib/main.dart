@@ -1,10 +1,8 @@
-import 'package:custom_fit/presentation/pages/customfit/custom_fit.dart';
-import 'package:custom_fit/presentation/pages/customfit/result.dart';
-import 'package:custom_fit/presentation/pages/payment/checkout_page.dart';
-import 'package:custom_fit/presentation/pages/payment/payment_success.dart';
 import 'package:custom_fit/presentation/pages/splashscreen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get_storage/get_storage.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -12,6 +10,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -26,6 +25,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const SplashScreen(),
+      builder: EasyLoading.init(),
     );
   }
 }

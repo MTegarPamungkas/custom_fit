@@ -25,7 +25,7 @@ class PaymentSuccess extends StatelessWidget {
                       Image.asset(
                         "images/paymentsuccess.png",
                       ),
-                      Text(
+                      const Text(
                         'Payment Successful',
                         textAlign: TextAlign.center,
                         style: TextStyle(

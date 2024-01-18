@@ -10,7 +10,7 @@ class CardItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         decoration: ShapeDecoration(
-          color: Color(0xFFF5F5FA),
+          color: const Color(0xFFF5F5FA),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
