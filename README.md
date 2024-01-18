@@ -19,6 +19,7 @@ Deskripsi Tim : Saat ini trend dunia fashion sedang begitu  berkembang, mulai ba
 <img src="https://github.com/MTegarPamungkas/custom_fit/assets/43881782/a5a4226d-c8ed-4e54-ace7-095ae6f07cb9" width="250">
 <img src="https://github.com/MTegarPamungkas/custom_fit/assets/43881782/aad7f623-86ba-4b83-8d58-d7b061abe6c1" width="250">
 <img src="https://github.com/MTegarPamungkas/custom_fit/assets/43881782/895405c7-07dd-4016-be30-3dd9fbcaca4c" width="250">
+<img src="https://github.com/MTegarPamungkas/custom_fit/assets/43881782/cfec70dd-428a-45cb-b3ff-db4c53b62f89" width="250">
+<img src="https://github.com/MTegarPamungkas/custom_fit/assets/43881782/6364b81c-b300-47b1-bb70-af638d29d78b" width="250">
 <img src="https://github.com/MTegarPamungkas/custom_fit/assets/43881782/8293b271-4ed1-4c0e-8525-23b847d85dc1" width="250">
-
 
