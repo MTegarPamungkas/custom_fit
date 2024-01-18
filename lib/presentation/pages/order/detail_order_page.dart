@@ -1,6 +1,7 @@
 import 'package:custom_fit/presentation/pages/payment/payment_success.dart';
 import 'package:custom_fit/presentation/widgets/card_item.dart';
 import 'package:custom_fit/presentation/widgets/destination_adress.dart';
+import 'package:custom_fit/presentation/widgets/order_number.dart';
 import 'package:custom_fit/presentation/widgets/payment_button_cancel.dart';
 import 'package:custom_fit/presentation/widgets/payment_method_detail.dart';
 import 'package:custom_fit/presentation/widgets/shipping_option_detail.dart';
@@ -35,6 +36,10 @@ class DetailOrderPage extends StatelessWidget {
                   height: 16,
                 ),
                 const PaymentMethodDetail(),
+                const SizedBox(
+                  height: 16,
+                ),
+                const OrderNumber(),
                 const SizedBox(
                   height: 16,
                 ),
