@@ -1,3 +1,4 @@
+import 'package:custom_fit/domain/entities/clothes.dart';
 import 'package:custom_fit/presentation/pages/payment/payment_success.dart';
 import 'package:custom_fit/presentation/widgets/card_item.dart';
 import 'package:custom_fit/presentation/widgets/destination_adress.dart';
@@ -23,7 +24,9 @@ class DetailOrderPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const CardItem(),
+                CardItem(
+                    clothes:
+                        Clothes(id: "0", idModel: "0", img: "0", desc: "0")),
                 const SizedBox(
                   height: 16,
                 ),
@@ -43,7 +46,9 @@ class DetailOrderPage extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                const TotalPrice(),
+                const TotalPrice(
+                  totalPrice: 0,
+                ),
                 const SizedBox(
                   height: 16,
                 ),

@@ -40,15 +40,52 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future<void> _performRegister(BuildContext context) async {
     EasyLoading.show(status: 'Loading...');
-    // final username = Email(_usernameController.text);
-    final email = Email(_emailController.text);
-    final password = Password(_passwordController.text);
 
-    final user =
-        await _registerUseCase.execute(email: email, password: password);
+    final email = Email(_emailController.text);
+    final password = _passwordController.text;
+
+    if (password.length < 8) {
+      EasyLoading.dismiss();
+      Alert(
+        context: context,
+        title: "Invalid Password",
+        desc: "Password must be at least 8 characters long.",
+        buttons: [
+          DialogButton(
+            onPressed: () => Navigator.pop(context),
+            width: 120,
+            child: const Text(
+              "Close",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          ),
+        ],
+        style: const AlertStyle(overlayColor: Colors.black54),
+      ).show();
+      return;
+    }
+
+    final user = await _registerUseCase.execute(
+        email: email, password: Password(password));
 
     if (user != null) {
       print('Register successful');
+      // ignore: use_build_context_synchronously
+      Alert(
+        context: context,
+        title: "Register Success",
+        buttons: [
+          DialogButton(
+            onPressed: () => Navigator.pop(context),
+            width: 120,
+            child: const Text(
+              "Close",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          ),
+        ],
+        style: const AlertStyle(overlayColor: Colors.black54),
+      ).show();
       EasyLoading.dismiss();
     } else {
       print('Register failed');

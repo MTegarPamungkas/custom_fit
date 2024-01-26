@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 class MaterialItem extends StatefulWidget {
   const MaterialItem({Key? key}) : super(key: key);
@@ -10,6 +11,26 @@ class MaterialItem extends StatefulWidget {
 class _MaterialItemState extends State<MaterialItem> {
   String selectedOption = 'Cotton';
   List<String> options = ['Cotton', 'Nylon', 'Wool'];
+
+  @override
+  void initState() {
+    super.initState();
+    // _loadSelectedOption();
+    _saveSelectedOption(selectedOption);
+  }
+
+  // _loadSelectedOption() async {
+  //   final box = await GetStorage().read('materialBox');
+  //   if (box != null && options.contains(box)) {
+  //     setState(() {
+  //       selectedOption = box;
+  //     });
+  //   }
+  // }
+
+  _saveSelectedOption(String newValue) async {
+    await GetStorage().write('materialItem', newValue);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +104,7 @@ class _MaterialItemState extends State<MaterialItem> {
               onChanged: (String? newValue) {
                 setState(() {
                   selectedOption = newValue!;
+                  _saveSelectedOption(selectedOption);
                 });
               },
               items: options.map<DropdownMenuItem<String>>((String value) {

@@ -2,7 +2,10 @@ import 'package:custom_fit/presentation/pages/payment/checkout_page.dart';
 import 'package:flutter/material.dart';
 
 class OrderItem extends StatelessWidget {
-  const OrderItem({Key? key}) : super(key: key);
+  final int totalPrice;
+  final String? data;
+  const OrderItem({Key? key, required this.data, required this.totalPrice})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +17,17 @@ class OrderItem extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const CheckoutPage(),
+                  builder: (context) => CheckoutPage(
+                    data: data,
+                    totalPrice: totalPrice,
+                  ),
                 ),
               );
             },
             child: Container(
               decoration: BoxDecoration(
-                color: const Color(0xFF5D55B3), // Set your desired color
-                borderRadius:
-                    BorderRadius.circular(12.0), // Set your desired radius
+                color: const Color(0xFF5D55B3),
+                borderRadius: BorderRadius.circular(12.0),
               ),
               child: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 14),
@@ -31,7 +36,7 @@ class OrderItem extends StatelessWidget {
                     'Order Now',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white, // Set your desired text color
+                      color: Colors.white,
                       fontSize: 16,
                       fontFamily: 'Open Sans',
                       fontWeight: FontWeight.w700,
@@ -48,9 +53,8 @@ class OrderItem extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-            color: const Color(0xFF5D55B3), // Set your desired color
-            borderRadius:
-                BorderRadius.circular(12.0), // Set your desired radius
+            color: const Color(0xFF5D55B3),
+            borderRadius: BorderRadius.circular(12.0),
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

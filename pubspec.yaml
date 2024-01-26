@@ -28,7 +28,11 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  cloud_firestore: ^4.14.0
+  crypto: ^3.0.3
+  cryptography: ^2.7.0
   cupertino_icons: ^1.0.2
+  dio: ^5.4.0
   firebase_auth: ^4.16.0
   firebase_core: ^2.24.2
   flutter:
@@ -39,6 +43,7 @@ dependencies:
   font_awesome_flutter: ^10.6.0
   get_storage: ^2.1.1
   persistent_bottom_nav_bar: ^5.0.2
+  pointycastle: ^3.7.4
   rflutter_alert: ^2.0.7
   sliding_up_panel: ^2.0.0+1
 

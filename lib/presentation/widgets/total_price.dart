@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TotalPrice extends StatelessWidget {
-  const TotalPrice({Key? key}) : super(key: key);
+  final int totalPrice;
+  const TotalPrice({Key? key, required this.totalPrice}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,7 @@ class TotalPrice extends StatelessWidget {
                         Expanded(
                           child: SizedBox(
                             child: Text(
-                              '\$25',
+                              'Rp.$totalPrice',
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 color: Colors.black
@@ -97,7 +98,7 @@ class TotalPrice extends StatelessWidget {
                         Expanded(
                           child: SizedBox(
                             child: Text(
-                              '\$40',
+                              'Rp.25000',
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 color: Colors.black
@@ -134,7 +135,7 @@ class TotalPrice extends StatelessWidget {
                         Expanded(
                           child: SizedBox(
                             child: Text(
-                              '\$10',
+                              'Rp.7500',
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 color: Colors.black
@@ -172,7 +173,7 @@ class TotalPrice extends StatelessWidget {
                     Expanded(
                       child: SizedBox(
                         child: Text(
-                          '\$75',
+                          'Rp.${totalPrice + 25000 + 7500}',
                           textAlign: TextAlign.right,
                           style: TextStyle(
                             color: Colors.black.withOpacity(0.8999999761581421),

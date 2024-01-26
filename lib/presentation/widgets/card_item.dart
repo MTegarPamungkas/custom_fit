@@ -1,7 +1,9 @@
+import 'package:custom_fit/domain/entities/clothes.dart';
 import 'package:flutter/material.dart';
 
 class CardItem extends StatelessWidget {
-  const CardItem({Key? key}) : super(key: key);
+  final Clothes clothes;
+  const CardItem({Key? key, required this.clothes}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +39,9 @@ class CardItem extends StatelessWidget {
                   Container(
                     width: 100,
                     height: 100,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("images/sampleitem.png"),
+                        image: NetworkImage(clothes.img),
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -48,7 +50,7 @@ class CardItem extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 15),
-            const Expanded(
+            Expanded(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -57,8 +59,8 @@ class CardItem extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: Text(
-                      'Countryside-Inspired Fashion',
-                      style: TextStyle(
+                      clothes.desc,
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 16,
                         fontFamily: 'Open Sans',
@@ -81,7 +83,7 @@ class CardItem extends StatelessWidget {
                   ),
                   SizedBox(height: 6),
                   Text(
-                    '\$75',
+                    'Rp.${clothes.price}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CardProductHome extends StatelessWidget {
-  const CardProductHome({Key? key}) : super(key: key);
+  final String? image;
+  final String? price;
+  final String? desc;
+  const CardProductHome({Key? key, this.image, this.price, this.desc})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +24,21 @@ class CardProductHome extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Image.asset("images/samplehome.png"),
+                Image.network(
+                  image!,
+                  fit: BoxFit.cover,
+                  // width: 200,
+                  height: 150,
+                  width: double.infinity,
+                ),
                 const SizedBox(
                   height: 12,
                 ),
-                const SizedBox(
+                SizedBox(
                   child: Text(
-                    'New Dresses for Every Occasion',
+                    desc!,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 15,
                       fontFamily: 'Open Sans',
@@ -37,30 +47,30 @@ class CardProductHome extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 6,
-                ),
-                SizedBox(
-                  child: Text(
-                    'Size L',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black.withOpacity(0.55),
-                      fontSize: 12,
-                      fontFamily: 'Open Sans',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
+                // const SizedBox(
+                //   height: 6,
+                // ),
+                // SizedBox(
+                //   child: Text(
+                //     'Size L',
+                //     textAlign: TextAlign.center,
+                //     style: TextStyle(
+                //       color: Colors.black.withOpacity(0.55),
+                //       fontSize: 12,
+                //       fontFamily: 'Open Sans',
+                //       fontWeight: FontWeight.w400,
+                //       height: 0,
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(
                   height: 16,
                 ),
-                const SizedBox(
+                SizedBox(
                   child: Text(
-                    '\$20',
+                    'Rp.$price',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 15,
                       fontFamily: 'Open Sans',

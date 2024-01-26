@@ -1,10 +1,24 @@
+import 'dart:convert';
+
+import 'package:custom_fit/domain/entities/clothes.dart';
+import 'package:custom_fit/domain/entities/order_item.dart';
 import 'package:custom_fit/presentation/pages/order/detail_order_page.dart';
 import 'package:custom_fit/presentation/widgets/card_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class TabOrder extends StatefulWidget {
-  const TabOrder({Key? key}) : super(key: key);
+  final List<OrderItem> listNotYetPaid;
+  final List<OrderItem> listProcess;
+  final List<OrderItem> listSent;
+  final List<OrderItem> listDone;
+  const TabOrder(
+      {Key? key,
+      required this.listNotYetPaid,
+      required this.listProcess,
+      required this.listSent,
+      required this.listDone})
+      : super(key: key);
 
   @override
   State<TabOrder> createState() => _TabOrderState();
@@ -51,10 +65,10 @@ class _TabOrderState extends State<TabOrder> {
                 padding: const EdgeInsets.all(8.0),
                 child: TabBarView(
                   children: [
-                    buildTabContentNotYetPaid(),
-                    buildTabContentSewing(),
-                    buildTabContentSent(),
-                    buildTabContentDone(),
+                    buildTabContentNotYetPaid(widget.listNotYetPaid),
+                    buildTabContentSewing(widget.listProcess),
+                    buildTabContentSent(widget.listSent),
+                    buildTabContentDone(widget.listDone),
                   ],
                 ),
               ),
@@ -115,11 +129,16 @@ class _TabOrderState extends State<TabOrder> {
     );
   }
 
-  Widget buildTabContentNotYetPaid() {
+  Widget buildTabContentNotYetPaid(List<OrderItem> listNotYetPaid) {
+    if (listNotYetPaid.isEmpty) {
+      return const Center(
+        child: Text("No data"),
+      );
+    }
     return AlignedGridView.count(
       crossAxisCount: 1,
       mainAxisSpacing: 12,
-      itemCount: 1,
+      itemCount: listNotYetPaid.length,
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
@@ -130,51 +149,80 @@ class _TabOrderState extends State<TabOrder> {
               ),
             );
           },
-          child: const CardItem(),
+          child: CardItem(
+            clothes: Clothes(id: "0", idModel: "0", img: "0", desc: "0"),
+          ),
         );
       },
     );
   }
 
-  Widget buildTabContentSewing() {
+  Widget buildTabContentSewing(List<OrderItem> listProcess) {
+    if (listProcess.isEmpty) {
+      return const Center(
+        child: Text("No data"),
+      );
+    }
     return AlignedGridView.count(
       crossAxisCount: 1,
       mainAxisSpacing: 12,
-      itemCount: 1,
+      itemCount: listProcess.length,
       itemBuilder: (context, index) {
-        return InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const DetailOrderPage(),
-              ),
-            );
-          },
-          child: const CardItem(),
+        OrderItem orderItem = listProcess[index];
+        List<dynamic> itemList = jsonDecode(orderItem.item);
+
+        // Create a list of CardItem widgets
+        List<Widget> cardItems = itemList.map((item) {
+          return CardItem(
+            clothes: Clothes(
+              id: item['id'],
+              idModel: item['id_model'],
+              img: item['img'],
+              desc: item['desc'],
+              price: item['price'],
+              // Include other fields as needed
+            ),
+          );
+        }).toList();
+
+        // Return a column containing the CardItem widgets
+        return Column(
+          children: cardItems,
         );
       },
     );
   }
 
-  Widget buildTabContentSent() {
+  Widget buildTabContentSent(List<OrderItem> listSent) {
+    if (listSent.isEmpty) {
+      return const Center(
+        child: Text("No data"),
+      );
+    }
     return AlignedGridView.count(
       crossAxisCount: 1,
       mainAxisSpacing: 12,
-      itemCount: 1,
+      itemCount: listSent.length,
       itemBuilder: (context, index) {
-        return const CardItem();
+        return CardItem(
+            clothes: Clothes(id: "0", idModel: "0", img: "0", desc: "0"));
       },
     );
   }
 
-  Widget buildTabContentDone() {
+  Widget buildTabContentDone(List<OrderItem> listDone) {
+    if (listDone.isEmpty) {
+      return const Center(
+        child: Text("No data"),
+      );
+    }
     return AlignedGridView.count(
       crossAxisCount: 1,
       mainAxisSpacing: 12,
-      itemCount: 1,
+      itemCount: listDone.length,
       itemBuilder: (context, index) {
-        return const CardItem();
+        return CardItem(
+            clothes: Clothes(id: "0", idModel: "0", img: "0", desc: "0"));
       },
     );
   }

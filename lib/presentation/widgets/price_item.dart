@@ -1,11 +1,19 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
-class PriceItem extends StatelessWidget {
-  const PriceItem({Key? key}) : super(key: key);
+class PriceItem extends StatefulWidget {
+  final int totalPrice;
+  const PriceItem({Key? key, required this.totalPrice}) : super(key: key);
 
   @override
+  State<PriceItem> createState() => _PriceItemState();
+}
+
+class _PriceItemState extends State<PriceItem> {
+  @override
   Widget build(BuildContext context) {
-    return const SizedBox(
+    return SizedBox(
       width: 320,
       height: 22,
       child: Row(
@@ -13,7 +21,7 @@ class PriceItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(
+          const Expanded(
             child: SizedBox(
               child: Text(
                 'Clothes to be paid for:',
@@ -28,10 +36,10 @@ class PriceItem extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 142),
+          const SizedBox(width: 142),
           Text(
-            '\$25',
-            style: TextStyle(
+            'Rp.${widget.totalPrice}',
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 18,
               fontFamily: 'Open Sans',

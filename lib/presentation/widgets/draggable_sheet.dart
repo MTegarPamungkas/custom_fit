@@ -1,3 +1,7 @@
+import 'dart:ffi';
+
+import 'package:custom_fit/domain/entities/clothes.dart';
+import 'package:custom_fit/presentation/widgets/card_product_home.dart';
 import 'package:custom_fit/presentation/widgets/material_item.dart';
 import 'package:custom_fit/presentation/widgets/order_item.dart';
 import 'package:custom_fit/presentation/widgets/price_item.dart';
@@ -7,11 +11,13 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:custom_fit/presentation/widgets/card_product_custom_fit.dart';
 import 'package:custom_fit/presentation/widgets/subtitle_text_auth.dart';
 import 'package:custom_fit/presentation/widgets/title_text_auth.dart';
+import 'package:get_storage/get_storage.dart';
 
 class DraggableSheetCustom extends StatelessWidget {
-  final Widget item;
+  final List<Clothes> clothestList;
 
-  const DraggableSheetCustom({Key? key, required this.item}) : super(key: key);
+  const DraggableSheetCustom({Key? key, required this.clothestList})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +57,15 @@ class DraggableSheetCustom extends StatelessWidget {
                 ),
                 Expanded(
                   child: AlignedGridView.count(
+                    itemCount: clothestList.length,
                     crossAxisCount: 2,
                     crossAxisSpacing: 16,
                     itemBuilder: (context, index) {
-                      return item;
+                      return CardProductHome(
+                        image: clothestList[index].img,
+                        price: clothestList[index].price,
+                        desc: clothestList[index].desc,
+                      );
                     },
                   ),
                 ),
@@ -68,7 +79,18 @@ class DraggableSheetCustom extends StatelessWidget {
 }
 
 class DraggableSheetCustom2 extends StatefulWidget {
-  const DraggableSheetCustom2({Key? key}) : super(key: key);
+  final List<Clothes> tshirtList;
+  final List<Clothes> pantsList;
+  final List<Clothes> skirtList;
+  final List<Clothes> modelList;
+
+  const DraggableSheetCustom2({
+    Key? key,
+    required this.tshirtList,
+    required this.pantsList,
+    required this.skirtList,
+    required this.modelList,
+  }) : super(key: key);
 
   @override
   State<DraggableSheetCustom2> createState() => _DraggableSheetCustom2State();
@@ -76,11 +98,27 @@ class DraggableSheetCustom2 extends StatefulWidget {
 
 class _DraggableSheetCustom2State extends State<DraggableSheetCustom2> {
   late int _selectedTabIndex;
+  List<Clothes?> selectedItems = List.generate(5, (index) => null);
+  late final GetStorage _storage;
 
   @override
   void initState() {
     super.initState();
+    _storage = GetStorage();
+
     _selectedTabIndex = 0;
+    selectedItems[0] = widget.modelList.isNotEmpty ? widget.modelList[0] : null;
+    saveItems();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  Future saveItems() async {
+    await _storage.write(
+        "selectedItems", selectedItems.map((item) => item?.toMap()).toList());
   }
 
   @override
@@ -117,7 +155,7 @@ class _DraggableSheetCustom2State extends State<DraggableSheetCustom2> {
                       },
                       tabAlignment: TabAlignment.start,
                       tabs: [
-                        _buildTab('images/user.png', "Model", 0),
+                        _buildTab('images/user.png', "Role model", 0),
                         _buildTab('images/tshirt.png', "Tshirt", 1),
                         _buildTab('images/skirt.png', "Skirt", 2),
                         _buildTab('images/pants.png', "Pants", 3),
@@ -127,12 +165,13 @@ class _DraggableSheetCustom2State extends State<DraggableSheetCustom2> {
                   ),
                   Expanded(
                     child: TabBarView(
+                      physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        buildTabContentModel(),
-                        buildTabContentTshirt(),
-                        buildTabContentSkirt(),
-                        buildTabContentPants(),
-                        buildTabContentYa()
+                        buildTabContent(widget.modelList, 0),
+                        buildTabContent(widget.tshirtList, 1),
+                        buildTabContent(widget.skirtList, 2),
+                        buildTabContent(widget.pantsList, 3),
+                        buildTabContent(widget.pantsList, 4),
                       ],
                     ),
                   ),
@@ -145,112 +184,102 @@ class _DraggableSheetCustom2State extends State<DraggableSheetCustom2> {
     );
   }
 
-  Tab _buildTab(String imagePath, String text, int index) {
-    return Tab(
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        width: _selectedTabIndex == index ? 100 : 80,
-        height: 35,
-        padding: const EdgeInsets.symmetric(vertical: 0),
-        decoration: ShapeDecoration(
-          color: _selectedTabIndex == index
-              ? const Color(0xFF5D55B3)
-              : const Color(0xFFF5F5FA),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+  LayoutBuilder _buildTab(String imagePath, String text, int index) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      final tp = TextPainter(
+        text: TextSpan(text: text, style: const TextStyle(fontSize: 14)),
+        textDirection: TextDirection.ltr,
+      );
+      tp.layout();
+      final double textWidth = tp.width;
+      final double containerWidth =
+          _selectedTabIndex == index ? textWidth + 50 : textWidth + 30;
+      return Tab(
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          width: containerWidth,
+          height: 35,
+          padding: const EdgeInsets.symmetric(vertical: 0),
+          decoration: ShapeDecoration(
+            color: _selectedTabIndex == index
+                ? const Color(0xFF5D55B3)
+                : const Color(0xFFF5F5FA),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
           ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              imagePath,
-              width: 20,
-              color: _selectedTabIndex == index
-                  ? Colors.white
-                  : const Color(0xFF5D55B3),
-            ),
-            const SizedBox(
-              width: 4,
-            ),
-            Visibility(
-              visible: _selectedTabIndex == index,
-              child: Text(
-                text,
-                style: TextStyle(
-                  color: _selectedTabIndex == index
-                      ? Colors.white
-                      : Colors.transparent,
-                  fontSize: 14,
-                  fontFamily: 'Open Sans',
-                  fontWeight: FontWeight.w700,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                imagePath,
+                width: 20,
+                color: _selectedTabIndex == index
+                    ? Colors.white
+                    : const Color(0xFF5D55B3),
+              ),
+              const SizedBox(
+                width: 4,
+              ),
+              Visibility(
+                visible: _selectedTabIndex == index,
+                child: Text(
+                  text,
+                  style: TextStyle(
+                    color: _selectedTabIndex == index
+                        ? Colors.white
+                        : Colors.transparent,
+                    fontSize: 14,
+                    fontFamily: 'Open Sans',
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
-  Widget buildTabContentModel() {
+  Widget buildTabContent(List<Clothes> clothesList, int categoryIndex) {
     return AlignedGridView.count(
       crossAxisCount: 2,
+      itemCount: clothesList.length,
       crossAxisSpacing: 16,
       itemBuilder: (context, index) {
-        return const CardProductCustomFit(imagesPath: "images/samplemodel.png");
-      },
-    );
-  }
-
-  Widget buildTabContentTshirt() {
-    return AlignedGridView.count(
-      crossAxisCount: 2,
-      crossAxisSpacing: 16,
-      itemBuilder: (context, index) {
-        return const CardProductCustomFit(
-            imagesPath: "images/sampletshirt.png");
-      },
-    );
-  }
-
-  Widget buildTabContentSkirt() {
-    return AlignedGridView.count(
-      crossAxisCount: 2,
-      crossAxisSpacing: 16,
-      itemBuilder: (context, index) {
-        return const CardProductCustomFit(imagesPath: "images/sampleskirt.png");
-      },
-    );
-  }
-
-  Widget buildTabContentPants() {
-    return AlignedGridView.count(
-      crossAxisCount: 2,
-      crossAxisSpacing: 16,
-      itemBuilder: (context, index) {
-        return const CardProductCustomFit(imagesPath: "images/samplemodel.png");
-      },
-    );
-  }
-
-  Widget buildTabContentYa() {
-    return AlignedGridView.count(
-      crossAxisCount: 2,
-      crossAxisSpacing: 16,
-      itemBuilder: (context, index) {
-        return const CardProductCustomFit(imagesPath: "images/samplemodel.png");
+        final clothes = clothesList[index];
+        return CardProductCustomFit(
+          imagesPath: clothes.img,
+          isChecked: _selectedTabIndex == categoryIndex &&
+              selectedItems[categoryIndex] == clothes,
+          onTap: () {
+            setState(() {
+              if (_selectedTabIndex == categoryIndex &&
+                  selectedItems[categoryIndex] == clothes) {
+                selectedItems[categoryIndex] = null;
+              } else {
+                _selectedTabIndex = categoryIndex;
+                selectedItems[categoryIndex] = clothes;
+              }
+              saveItems();
+            });
+          },
+        );
       },
     );
   }
 }
 
 class DraggableSheetCustomResult extends StatelessWidget {
-  final Widget item;
+  final int totalPrice;
+  final String? data;
 
-  const DraggableSheetCustomResult({Key? key, required this.item})
+  const DraggableSheetCustomResult(
+      {Key? key, required this.totalPrice, required this.data})
       : super(key: key);
 
   @override
@@ -280,21 +309,27 @@ class DraggableSheetCustomResult extends StatelessWidget {
                     padding: EdgeInsets.zero,
                     controller: scrollController,
                     // shrinkWrap: true,
-                    children: const [
-                      TitleTextAuth(title: "Countryside-Inspired Fashion"),
-                      SizedBox(height: 8.0),
-                      SubTitleTextAuth(
+                    children: [
+                      const TitleTextAuth(
+                          title: "Countryside-Inspired Fashion"),
+                      const SizedBox(height: 8.0),
+                      const SubTitleTextAuth(
                         title:
                             "Clothes will be determined by the material and size chosen. The choice of material and size affects the payment price. See All",
                       ),
-                      SizedBox(height: 32.0),
-                      MaterialItem(),
-                      SizedBox(height: 16.0),
-                      SizeItem(),
-                      SizedBox(height: 32.0),
-                      PriceItem(),
-                      SizedBox(height: 32.0),
-                      OrderItem(),
+                      const SizedBox(height: 32.0),
+                      const MaterialItem(),
+                      const SizedBox(height: 16.0),
+                      const SizeItem(),
+                      const SizedBox(height: 32.0),
+                      PriceItem(
+                        totalPrice: totalPrice,
+                      ),
+                      const SizedBox(height: 32.0),
+                      OrderItem(
+                        data: data,
+                        totalPrice: totalPrice,
+                      ),
                     ],
                   ),
                 ),

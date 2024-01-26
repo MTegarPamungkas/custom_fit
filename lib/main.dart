@@ -1,3 +1,4 @@
+import 'package:custom_fit/presentation/pages/payment/checkout_page.dart';
 import 'package:custom_fit/presentation/pages/splashscreen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
+      home: SplashScreen(),
       builder: EasyLoading.init(),
     );
   }

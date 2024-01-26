@@ -1,13 +1,27 @@
-import 'package:custom_fit/presentation/widgets/card_product_home.dart';
 import 'package:custom_fit/presentation/widgets/draggable_sheet.dart';
 import 'package:custom_fit/presentation/widgets/nav_custom_fit.dart';
 import 'package:flutter/material.dart';
 
-class CustomFitResult extends StatelessWidget {
-  const CustomFitResult({Key? key}) : super(key: key);
+class CustomFitResult extends StatefulWidget {
+  final String imageGenerated;
+  final String? data;
+  final int totalPrice;
+  const CustomFitResult(
+      {Key? key,
+      required this.imageGenerated,
+      required this.data,
+      required this.totalPrice})
+      : super(key: key);
 
   @override
+  State<CustomFitResult> createState() => _CustomFitResultState();
+}
+
+class _CustomFitResultState extends State<CustomFitResult> {
+  @override
   Widget build(BuildContext context) {
+    print(widget.data);
+
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SafeArea(
@@ -29,16 +43,18 @@ class CustomFitResult extends StatelessWidget {
                       height: 30,
                     ),
                     const NavCustomFitResult(),
-                    Image.asset(
-                      "images/sampleresult.png",
+                    Image.network(
+                      widget.imageGenerated,
                       height: screenHeight * 0.8,
+                      fit: BoxFit.fitHeight,
                     )
                   ],
                 ),
               ),
             ),
-            const DraggableSheetCustomResult(
-              item: CardProductHome(),
+            DraggableSheetCustomResult(
+              data: widget.data,
+              totalPrice: widget.totalPrice,
             ),
           ],
         ),

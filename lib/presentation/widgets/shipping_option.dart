@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 class ShippingOption extends StatefulWidget {
   const ShippingOption({Key? key}) : super(key: key);
@@ -8,7 +9,8 @@ class ShippingOption extends StatefulWidget {
 }
 
 class _ShippingOptionState extends State<ShippingOption> {
-  int selectedOption = -1; // Track the selected option index
+  int selectedOption = -1;
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +41,8 @@ class _ShippingOptionState extends State<ShippingOption> {
                 date: '07 January 2024 - 14 January 2024',
                 description:
                     'With priority sewing, clothes will be made quickly and sent straight away',
-                originalPrice: '\$50',
-                discountedPrice: '\$40',
+                originalPrice: 'Rp.40000',
+                discountedPrice: 'Rp.25000',
                 index: 0,
               ),
               const SizedBox(height: 10),
@@ -49,8 +51,8 @@ class _ShippingOptionState extends State<ShippingOption> {
                 date: '07 January 2024 - 18 January 2024',
                 description:
                     'With priority sewing, clothes will be made quickly and sent straight away',
-                originalPrice: '\$30',
-                discountedPrice: '\$20',
+                originalPrice: 'Rp.25000',
+                discountedPrice: 'Rp.15000',
                 index: 1,
               ),
             ],
@@ -72,6 +74,12 @@ class _ShippingOptionState extends State<ShippingOption> {
       onTap: () {
         setState(() {
           selectedOption = index;
+
+          if (selectedOption == 0) {
+            box.write('sewing', 'priority');
+          } else if (selectedOption == 1) {
+            box.write('sewing', 'normal');
+          }
         });
       },
       child: Container(

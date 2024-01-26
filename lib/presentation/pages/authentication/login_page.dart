@@ -48,6 +48,7 @@ class _LoginPageState extends State<LoginPage> {
       print('Login successful');
       final box = GetStorage();
       await box.write('userEmail', user.email.value);
+      await box.write('userUid', user.uid);
       // ignore: use_build_context_synchronously
       Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
         MaterialPageRoute(
