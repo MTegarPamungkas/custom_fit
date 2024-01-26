@@ -23,3 +23,21 @@ Deskripsi Tim : Saat ini trend dunia fashion sedang begitu  berkembang, mulai ba
 <img src="https://github.com/MTegarPamungkas/custom_fit/assets/43881782/d02ecef5-fb03-4b1d-8616-21716fb78e1c" width="250">
 <img src="https://github.com/MTegarPamungkas/custom_fit/assets/43881782/8293b271-4ed1-4c0e-8525-23b847d85dc1" width="250">
 
+
+</p>
+</p>
+
+## Persyaratan
+- Flutter SDK
+- Dart SDK
+- Android Studio atau IDE lain dengan dukungan Flutter
+- Firebase CLI & flutterFire
+
+## Menjalankan Proyek
+1. Clone repositori ini.
+2. Buka terminal dan navigasikan ke direktori proyek.
+3. Jalankan `flutter pub get` untuk menginstal dependensi.
+4. jalankan `flutterfire configure`
+5. pilih project firebase yang ingin ditautkan
+6. Jalankan `flutter run` untuk memulai aplikasi.
+
