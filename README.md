@@ -1,8 +1,8 @@
-# custom_fit
-Nama Tim : AuraVentures </p>
-Anggota Tim : Muhammad Tegar Pamungkas | Muhammad Alif Ramadhan | Shafa Aura Ayu | Kartika </p>
-Nama Aplikasi : CustomFit </p>
-Deskripsi Tim : Saat ini trend dunia fashion sedang begitu  berkembang, mulai banyak orang yang tertarik untuk membuat baju sendiri dengan model yang mereka inginkan. Tetapi, terdapat permasalahan yaitu sulitnya merancang model baju yang diinginkan ketika mengalami keterbatasan jarak dengan tukang jahit. Didasari oleh hal tersebut, penulis membuat inovasi aplikasi yang mampu membantu user untuk membuat model bajunya sendiri berbasis generative AI dan langsung menghubungkan hasil custom bajunya kepada penjahit. Aplikasi ini mendorong inovasi dalam bidang fashion dan tercapainya SDGS ke SDG 9 yaitu mendukung Industri, Inovasi, dan Infrastruktur.</p>
+#custom_fit
+Team Name : AuraVentures </p>
+Team Member: Muhammad Tegar Pamungkas | Muhammad Alif Ramadhan | Shafa Aura Ayu | Kartika </p>
+Application Name : CustomFit </p>
+Team Description: Currently the trend in the world of fashion is growing, many people are starting to be interested in making their own clothes with the models they want. However, there is a problem, namely the difficulty of designing the desired clothing model when experiencing limited distance to the tailor. Based on this, the author created an innovative application that can help users create their own clothing models based on generative AI and directly connect the results of their custom clothing to the tailor. This application encourages innovation in the fashion sector and achieves SDGS to SDG 9, namely supporting Industry, Innovation and Infrastructure.</p>
 
 
 <img src="https://github.com/MTegarPamungkas/custom_fit/assets/43881782/f933f51e-6f31-463d-a2f2-defd7cee6299" width="250">
@@ -27,17 +27,22 @@ Deskripsi Tim : Saat ini trend dunia fashion sedang begitu  berkembang, mulai ba
 </p>
 </p>
 
-## Persyaratan
+## Improvment: Taylor Website
+We created a website for Taylor to try out user requested features on the CustomFit app. We did a direct test, 2 out of 3 tailors agreed with the application we made and it was easy to use.
+
+<img src="images/image website/landing page.png">
+<img src="images/image website/detail product.png">
+
+## Condition
 - Flutter SDK
 - Dart SDK
-- Android Studio atau IDE lain dengan dukungan Flutter
+- Android Studio or another IDE with Flutter support
 - Firebase CLI & flutterFire
 
-## Menjalankan Proyek
-1. Clone repositori ini.
-2. Buka terminal dan navigasikan ke direktori proyek.
-3. Jalankan `flutter pub get` untuk menginstal dependensi.
-4. jalankan `flutterfire configure`
-5. pilih project firebase yang ingin ditautkan
-6. Jalankan `flutter run` untuk memulai aplikasi.
-
+## Running Projects
+1. Clone this repository.
+2. Open a terminal and navigate to the project directory.
+3. Run `flutter pub get` to install dependencies.
+4. run `flutterfire configure`
+5. Select the Firebase project you want to link
+6. Run `flutter run` to start the application.
